@@ -1,0 +1,299 @@
+:root {
+  color-scheme: light;
+  --bg: #eef2f6;
+  --bg-accent: #dfe8f6;
+  --surface: rgba(255, 255, 255, 0.92);
+  --surface-strong: #ffffff;
+  --surface-muted: #f5f8fc;
+  --border: rgba(31, 51, 84, 0.12);
+  --border-strong: rgba(31, 51, 84, 0.18);
+  --text: #172033;
+  --text-muted: #5a6882;
+  --brand: #1e5bb8;
+  --brand-soft: rgba(30, 91, 184, 0.12);
+  --shadow: 0 20px 50px rgba(20, 32, 51, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.92), transparent 32rem),
+    linear-gradient(180deg, #f7f9fc 0%, var(--bg) 48%, #e9eef5 100%);
+  color: var(--text);
+  font-family:
+    "Avenir Next",
+    "Segoe UI",
+    sans-serif;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(30, 91, 184, 0.12), transparent 20rem),
+    radial-gradient(circle at 15% 85%, rgba(110, 141, 194, 0.12), transparent 22rem);
+  z-index: -1;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+code {
+  font-family:
+    "SFMono-Regular",
+    "Roboto Mono",
+    "Menlo",
+    monospace;
+}
+
+.page-shell {
+  width: min(1080px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 44px 0 80px;
+}
+
+.page-label {
+  margin: 0 0 14px;
+  color: var(--brand);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.shell-card,
+.panel {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.shell-card {
+  padding: 28px;
+  margin-bottom: 18px;
+}
+
+.shell-card--hero {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 251, 255, 0.94)),
+    var(--surface);
+  border-color: var(--border-strong);
+}
+
+.shell-card h1,
+.panel h2 {
+  margin: 0;
+  color: var(--text);
+}
+
+.shell-card h1 {
+  font-family:
+    "Avenir Next",
+    "Segoe UI",
+    sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.panel h2 {
+  font-family:
+    "Avenir Next",
+    "Segoe UI",
+    sans-serif;
+  font-size: 1.12rem;
+  line-height: 1.2;
+}
+
+.shell-copy,
+.context-note,
+.panel__copy,
+.docs-list,
+.meta-note,
+.meta-row dt,
+.meta-row dd,
+.endpoint-row code,
+.hero-aside__copy {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.shell-copy {
+  margin: 18px 0 0;
+  max-width: 62ch;
+  font-size: 1.03rem;
+}
+
+.context-note {
+  margin: 16px 0 0;
+  max-width: 62ch;
+  font-size: 0.95rem;
+}
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.panel {
+  padding: 18px;
+  background: var(--surface-strong);
+}
+
+.panel--wide {
+  grid-column: 1 / -1;
+}
+
+.panel__header {
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel__copy {
+  margin: 8px 0 0;
+  font-size: 0.91rem;
+}
+
+.docs-list {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 12px;
+  font-size: 0.95rem;
+}
+
+.docs-list li::marker {
+  color: var(--brand);
+}
+
+.meta-list {
+  margin: 0;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+
+.meta-row:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.meta-row:last-child {
+  padding-bottom: 0;
+}
+
+.meta-row dt,
+.meta-row dd {
+  margin: 0;
+  font-size: 0.93rem;
+}
+
+.meta-row dt {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.meta-row dd {
+  text-align: right;
+}
+
+.meta-row code {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.48rem;
+  border-radius: 999px;
+  background: var(--surface-muted);
+  color: var(--text);
+  font-size: 0.82rem;
+}
+
+.meta-note {
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 0.92rem;
+}
+
+.endpoint-list {
+  display: grid;
+  gap: 12px;
+}
+
+.endpoint-row {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: linear-gradient(180deg, var(--surface-muted), #fbfcfe);
+}
+
+.endpoint-row code {
+  overflow-wrap: anywhere;
+  font-size: 0.86rem;
+  color: var(--text);
+}
+
+.endpoint-method {
+  display: inline-flex;
+  justify-content: center;
+  width: fit-content;
+  min-width: 52px;
+  border-radius: 999px;
+  padding: 0.35rem 0.55rem;
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 860px) {
+  .page-shell {
+    width: min(100vw - 24px, 1080px);
+    padding: 28px 0 56px;
+  }
+
+  .docs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .shell-card {
+    padding: 22px 18px;
+  }
+
+  .meta-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .meta-row dd {
+    text-align: left;
+  }
+}
