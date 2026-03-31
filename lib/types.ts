@@ -115,3 +115,73 @@ export interface GenerateMasteryResponse {
   report: LatestMasteryReport;
   detailed_report: DetailedMasteryReport;
 }
+
+// ---------------------------------------------------------------------------
+// Presentation-layer types (assembled from generator output + placeholders)
+// ---------------------------------------------------------------------------
+
+export type EvidenceType = "misconception" | "positive" | "neutral";
+
+export type TranscriptLineType = "dialogue" | "problem_change" | "annotation";
+
+export interface TranscriptLine {
+  index: number;
+  timestamp?: string;
+  speaker?: "TUTOR" | "STUDENT";
+  text: string;
+  line_type: TranscriptLineType;
+  highlight?: {
+    evidence_id: string;
+    sub_skill_id: string;
+    type: EvidenceType;
+  };
+}
+
+export interface SurfacedMisconception {
+  id: string;
+  description: string;
+  evidence_id: string;
+  sub_skill_id: string;
+}
+
+export type NextStepKind = "student_practice" | "tutor_research" | "question" | "intervention";
+
+export interface NextStep {
+  kind: NextStepKind;
+  content: string;
+  source?: string;
+  sub_skill_id?: string;
+  rationale: string;
+}
+
+export type CertaintyLevel = "low" | "medium" | "high";
+
+export interface SubSkillPresentation extends SubSkillSnapshot {
+  certainty: CertaintyLevel;
+  hints_needed?: number;
+  time_on_prompt_sec?: number;
+}
+
+export interface DebriefItem {
+  label: string;
+  done: boolean;
+  detail?: string;
+}
+
+export interface DashboardData {
+  tutor: TutorProfile;
+  student: StudentProfile;
+  session: {
+    session_id: string;
+    session_date: string;
+    title: string;
+  };
+  cluster: PriorityCluster;
+  overall_summary: string;
+  sub_skills: SubSkillPresentation[];
+  evidence_by_sub_skill: EvidenceBySubSkill[];
+  transcript_lines: TranscriptLine[];
+  misconceptions: SurfacedMisconception[];
+  next_steps: NextStep[];
+  debrief: DebriefItem[];
+}
