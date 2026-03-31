@@ -1,0 +1,231 @@
+.card {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.studentName {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.clusterLabel {
+  margin: 4px 0 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.assessedBadge {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 12px;
+  background: var(--brand-soft);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.assessedCount {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.assessedTotal {
+  font-size: 0.78rem;
+  color: var(--brand);
+}
+
+.summary {
+  margin: 0 0 14px;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 65ch;
+}
+
+.sampleNote {
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: var(--surface-muted);
+  border: 1px dashed var(--border);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.pillGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.pill {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.pill:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+.pillClickable {
+  cursor: pointer;
+}
+
+.pillClickable:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.pillHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.pillId {
+  font-family: "SFMono-Regular", "Roboto Mono", "Menlo", monospace;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.pillName {
+  margin: 0 0 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.pillFooter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.statusSecure .statusDot,
+.statusDot.statusSecure {
+  background: var(--secure);
+}
+
+.statusDeveloping .statusDot,
+.statusDot.statusDeveloping {
+  background: var(--developing);
+}
+
+.statusNotAssessed .statusDot,
+.statusDot.statusNotAssessed {
+  background: var(--not-assessed);
+}
+
+.statusSecure {
+  border-color: var(--secure-border);
+}
+
+.statusDeveloping {
+  border-color: var(--developing-border);
+}
+
+.statusNotAssessed {
+  border-color: var(--border);
+  opacity: 0.7;
+}
+
+.statusLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.evidenceCount {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+.pillMeta {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.metaItem {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.certaintyBadge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--surface-muted);
+  border: 1px solid var(--border-strong);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: help;
+}
+
+.certaintyHigh {
+  background: var(--certainty-high-bg);
+  border-color: var(--certainty-high);
+  color: var(--certainty-high);
+}
+
+.certaintyMedium {
+  background: var(--certainty-medium-bg);
+  border-color: var(--certainty-medium);
+  color: var(--certainty-medium);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
