@@ -34,8 +34,8 @@
   --misconception-bg-hover: rgba(220, 38, 38, 0.1);
 
   /* Certainty */
-  --certainty-high: #b45309;
-  --certainty-high-bg: rgba(180, 83, 9, 0.1);
+  --certainty-low: #b45309;
+  --certainty-low-bg: rgba(180, 83, 9, 0.1);
   --certainty-medium: #6b7280;
   --certainty-medium-bg: rgba(107, 114, 128, 0.08);
 }

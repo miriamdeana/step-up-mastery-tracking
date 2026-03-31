@@ -107,14 +107,18 @@ function buildSubSkillPresentations(
       (entry) => entry.sub_skill_id === subSkill.id
     );
 
+    const assessed = match != null;
+
     return {
       id: subSkill.id,
       name: subSkill.name,
       status: match?.status ?? "not_assessed",
       evidence_count: match?.evidence.length ?? 0,
-      certainty: (CERTAINTY_BY_SKILL[subSkill.id] ?? "high") as CertaintyLevel,
-      hints_needed: HINTS_NEEDED[subSkill.id],
-      time_on_prompt_sec: TIME_ON_PROMPT[subSkill.id],
+      certainty: assessed
+        ? ((CERTAINTY_BY_SKILL[subSkill.id] ?? "medium") as CertaintyLevel)
+        : ("low" as CertaintyLevel),
+      hints_needed: assessed ? HINTS_NEEDED[subSkill.id] : undefined,
+      time_on_prompt_sec: assessed ? TIME_ON_PROMPT[subSkill.id] : undefined,
     };
   });
 }

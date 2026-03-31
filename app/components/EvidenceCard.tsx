@@ -83,11 +83,9 @@ export default function EvidenceCard({
               {presentation.time_on_prompt_sec}s on prompt
             </span>
           )}
-          {presentation.certainty !== "low" && (
-            <span className={styles.metaChip}>
-              Confidence: {presentation.certainty === "high" ? "low" : "moderate"}
-            </span>
-          )}
+          <span className={styles.metaChip}>
+            Confidence: {presentation.certainty === "high" ? "high" : presentation.certainty === "medium" ? "moderate" : "low"}
+          </span>
         </div>
       )}
     </article>

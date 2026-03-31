@@ -203,15 +203,21 @@
 }
 
 .certaintyHigh {
-  background: var(--certainty-high-bg);
-  border-color: var(--certainty-high);
-  color: var(--certainty-high);
+  background: var(--secure-bg);
+  border-color: var(--secure);
+  color: var(--secure);
 }
 
 .certaintyMedium {
   background: var(--certainty-medium-bg);
   border-color: var(--certainty-medium);
   color: var(--certainty-medium);
+}
+
+.certaintyLow {
+  background: var(--certainty-low-bg);
+  border-color: var(--certainty-low);
+  color: var(--certainty-low);
 }
 
 .legend {

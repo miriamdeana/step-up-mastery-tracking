@@ -42,14 +42,18 @@ function SubSkillPill({
         ? styles.statusDeveloping
         : styles.statusNotAssessed;
 
+  const certaintyLabel =
+    skill.certainty === "high" ? "High" : skill.certainty === "medium" ? "Moderate" : "Low";
+  const certaintyIcon = skill.certainty === "high" ? "\u2713" : skill.certainty === "medium" ? "~" : "?";
   const certaintyClass =
     skill.certainty === "high"
       ? styles.certaintyHigh
       : skill.certainty === "medium"
         ? styles.certaintyMedium
-        : "";
+        : styles.certaintyLow;
 
   const interactive = hasEvidence;
+  const assessed = skill.status !== "not_assessed";
 
   return (
     <div
@@ -61,12 +65,12 @@ function SubSkillPill({
     >
       <div className={styles.pillHeader}>
         <span className={styles.pillId}>{skill.id}</span>
-        {skill.certainty !== "low" && (
+        {assessed && (
           <span
             className={`${styles.certaintyBadge} ${certaintyClass}`}
-            title={`Confidence: ${skill.certainty === "high" ? "low" : "moderate"} — limited evidence`}
+            title={`${certaintyLabel} confidence — based on evidence from this session`}
           >
-            {skill.certainty === "high" ? "?" : "~"}
+            {certaintyIcon}
           </span>
         )}
       </div>
@@ -156,9 +160,6 @@ export default function MasteryOverview({
           </span>
           <span className={styles.legendItem}>
             <span className={`${styles.statusDot} ${styles.statusNotAssessed}`} /> Not assessed
-          </span>
-          <span className={styles.legendItem}>
-            <span className={styles.certaintyBadge} style={{ position: "static", fontSize: "0.7rem" }}>?</span> Low confidence
           </span>
         </div>
       </section>
