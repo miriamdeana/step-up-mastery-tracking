@@ -1,25 +1,76 @@
-import { generateMasteryReport } from "@/lib/generator";
+import { generateDashboard } from "@/lib/generator";
 import { curriculumReference, seededSession, seededStudent, seededTutor } from "@/lib/seed";
 import type {
+  DashboardData,
   DetailedMasteryReport,
   GenerateMasteryRequest,
   LatestMasteryReport,
 } from "@/lib/types";
 
-type ReportState = {
-  latest: LatestMasteryReport;
-  detailed: DetailedMasteryReport;
-};
+// ---------------------------------------------------------------------------
+// State
+// ---------------------------------------------------------------------------
 
-function createReportState(): ReportState {
-  const generated = generateMasteryReport(seededSession);
+let dashboardState: DashboardData = generateDashboard(seededSession);
+let reportId = `report-${Date.now()}`;
+let createdAt = new Date().toISOString();
+
+// ---------------------------------------------------------------------------
+// Dashboard (used by the page)
+// ---------------------------------------------------------------------------
+
+export function getDashboardData(): DashboardData {
+  return dashboardState;
+}
+
+// ---------------------------------------------------------------------------
+// Legacy API types (derived from DashboardData for backward compatibility)
+// ---------------------------------------------------------------------------
+
+function deriveLatestReport(): LatestMasteryReport {
+  const d = dashboardState;
   return {
-    latest: generated.summary,
-    detailed: generated.detailed,
+    report_id: reportId,
+    tutor_id: d.tutor.tutor_id,
+    student_id: d.student.student_id,
+    session_count: 1,
+    overall_summary: d.overall_summary,
+    created_at: createdAt,
+    cluster: d.cluster,
+    sub_skills: d.sub_skills.map(({ id, name, status, evidence_count }) => ({
+      id,
+      name,
+      status,
+      evidence_count,
+    })),
   };
 }
 
-let reportState: ReportState = createReportState();
+function deriveDetailedReport(): DetailedMasteryReport {
+  const d = dashboardState;
+  return {
+    report_id: reportId,
+    tutor_id: d.tutor.tutor_id,
+    student_id: d.student.student_id,
+    session_count: 1,
+    overall_summary: d.overall_summary,
+    created_at: createdAt,
+    cluster: d.cluster,
+    curriculum: curriculumReference,
+    sessions: [
+      {
+        session_id: d.session.session_id,
+        session_date: d.session.session_date,
+        transcript: seededSession.transcript,
+        evidence_by_sub_skill: d.evidence_by_sub_skill,
+      },
+    ],
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Public accessors (used by API routes)
+// ---------------------------------------------------------------------------
 
 export function getSeedContext() {
   return {
@@ -35,19 +86,13 @@ function ensureIdentityMatch(tutorId: string, studentId: string) {
 }
 
 export function getLatestReport(tutorId: string, studentId: string) {
-  if (!ensureIdentityMatch(tutorId, studentId)) {
-    return null;
-  }
-
-  return reportState.latest;
+  if (!ensureIdentityMatch(tutorId, studentId)) return null;
+  return deriveLatestReport();
 }
 
 export function getDetailedReport(tutorId: string, studentId: string) {
-  if (!ensureIdentityMatch(tutorId, studentId)) {
-    return null;
-  }
-
-  return reportState.detailed;
+  if (!ensureIdentityMatch(tutorId, studentId)) return null;
+  return deriveDetailedReport();
 }
 
 export function regenerateReport(input: GenerateMasteryRequest) {
@@ -58,6 +103,12 @@ export function regenerateReport(input: GenerateMasteryRequest) {
     return null;
   }
 
-  reportState = createReportState();
-  return reportState;
+  dashboardState = generateDashboard(seededSession);
+  reportId = `report-${Date.now()}`;
+  createdAt = new Date().toISOString();
+
+  return {
+    latest: deriveLatestReport(),
+    detailed: deriveDetailedReport(),
+  };
 }
